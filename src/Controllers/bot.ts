@@ -1,9 +1,9 @@
 import Telegraf, { ContextMessageUpdate } from 'telegraf';
 import axios from 'axios';
 import { TranslateService } from '../Services/translate';
-import { configuration } from '../config'
-import { actions } from '../Services/actions';
 import { Intent } from '../Models/interfaces';
+import { actions } from '../Services/actions';
+import { configuration } from '../config';
 
 export class MiiBot {
     private bot: Telegraf<ContextMessageUpdate> = null;
@@ -39,8 +39,6 @@ export class MiiBot {
 
         const action = actions.find(item => item.name === result);
         const message = action !== undefined ? action.function() : 'Lo siento, no sé como ayudarle';
-
-        console.log(user.source.language);
         
         const server = await TranslateService.serverMessage(message, user.source.language);
         event.reply(server.target.message);
