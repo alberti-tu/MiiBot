@@ -1,6 +1,6 @@
 import express from 'express';
 import { MiiBot } from './Controllers/bot';
-import { configuration } from './configuration';
+import { configuration } from './config';
 
 const app = express();
 new MiiBot();
