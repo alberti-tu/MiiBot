@@ -1,9 +1,12 @@
-import { MiiBot } from './Controllers/bot';
 import express from 'express';
+import { MiiBot } from './Controllers/bot';
+import { configuration } from './configuration';
 
-const bot = new MiiBot();
 const app = express();
+new MiiBot();
 
-app.listen(3000, () => console.log('Server is listening on http://[...]:3000'));
+app.listen(configuration.server.token, () => {
+    console.log('Server is listening on http://[...]:' + configuration.server.token);
+});
 
 app.get('/', (req, res) => res.send('Hello world!'));
