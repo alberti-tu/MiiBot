@@ -7,8 +7,8 @@ const bot = new MiiBot();
 
 const app = express();
 
-app.listen(configuration.server.token, () => {
-    console.log('Server is listening on http://[...]:' + configuration.server.token);
+app.listen(configuration.server.port, () => {
+    console.log('Server is listening on http://[...]:' + configuration.server.port);
 });
 
 app.get('/', (req, res) => res.send('Hello world!'));
