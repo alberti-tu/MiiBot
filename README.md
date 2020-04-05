@@ -66,5 +66,5 @@ Install the dependences and start the program.
 ```bash
 cd MiiBot-server
 npm install
-npm start
+sudo npm start
 ```
