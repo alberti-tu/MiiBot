@@ -1,6 +1,6 @@
 import Telegraf, { ContextMessageUpdate } from 'telegraf';
 import axios from 'axios';
-import { TranslateService } from '../Services/translate';
+import * as translateService from '../Services/translate';
 import { Intent } from '../Models/interfaces';
 import { actions } from '../Services/actions';
 import { configuration } from '../config';
@@ -21,18 +21,18 @@ export class MiiBot {
 
     private async welcomeMessage(event: ContextMessageUpdate) {
         const message = 'Encantado de ayudarte ' + event.update.message.from.first_name + '!';
-        const server = await TranslateService.serverMessage(message, event.update.message.from.language_code);
+        const server = await translateService.serverMessage(message, event.update.message.from.language_code);
         event.reply(server.target.message);
     }
 
     private async helpMessage(event: ContextMessageUpdate) {
         const message = 'Enviame un sticker';
-        const server = await TranslateService.serverMessage(message, event.update.message.from.language_code);
+        const server = await translateService.serverMessage(message, event.update.message.from.language_code);
         event.reply(server.target.message);
     }
 
     private async messageResponse(event: ContextMessageUpdate) {
-        const user = await TranslateService.userMessage(event.update.message.text);
+        const user = await translateService.userMessage(event.update.message.text);
 
         const response = await axios.get<Intent>(configuration.endpoint.nlp + user.target.message);
         let result = response.data.prediction.topIntent;
@@ -40,7 +40,7 @@ export class MiiBot {
         const action = actions.find(item => item.name === result);
         const message = action !== undefined ? action.function() : 'Lo siento, no sé como ayudarle';
         
-        const server = await TranslateService.serverMessage(message, user.source.language);
+        const server = await translateService.serverMessage(message, user.source.language);
         event.reply(server.target.message);
     }
 }

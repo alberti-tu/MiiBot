@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import * as jwt from 'jsonwebtoken';
+import crypto from 'crypto';
 import { Database } from './database';
 import { Message } from '../Models/interfaces';
 import { configuration } from '../config';
@@ -19,21 +20,36 @@ export async function login(req: Request<any>, res: Response<Message<string>>, n
         }
     }
     catch {
-        res.send({ code: 400, message: 'Query error', result: null });
+        res.send({ code: 400, message: 'Error', result: null });
+    }
+}
+
+export async function registerUser(req: Request<any>, res: Response<Message<boolean>>, next: NextFunction) {
+    try {
+        const hash = crypto.createHash('sha256').update(req.body.password).digest('base64');
+        await mysql.query('INSERT INTO users VALUES (?,?)', [req.body.username, hash]);
+        res.send({ code: 201, message: 'User created', result: true });
+    } catch {
+        res.send({ code: 400, message: 'Error', result: false });
+    }
+}
+
+export async function deleteUser(req: Request<any>, res: Response<Message<boolean>>, next: NextFunction) {
+    try {
+        await mysql.query('DELETE FROM users WHERE username = ?', [req.body.username]);
+        res.send({ code: 200, message: 'User deleted', result: true });
+    } catch {
+        res.send({ code: 400, message: 'Error', result: false });
     }
 }
 
 export function verifyToken(req: Request<any>, res: Response<Message<string>>, next: NextFunction) {
     try {
         const token = req.headers.authorization;
-        jwt.verify(token, configuration.server.secret);
+        res.locals = jwt.verify(token, configuration.server.secret);
         next();
     }
     catch {
         res.send({ code: 401, message: 'Unauthorized', result: null });
     }
-}
-
-export function test(req: Request<any>, res: Response<Message<string>>, next: NextFunction) {
-    res.send({ code: 200, message: 'Successful', result: 'ok' });
 }

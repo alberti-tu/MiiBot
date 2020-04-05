@@ -15,8 +15,9 @@ app.listen(configuration.server.port, () => {
 app.use(bodyParser.json());
 
 // Backend routes
-app.post('/api/login', server.login);
-app.get('/api/test', server.verifyToken, server.test);
+app.post('/api/user/login', server.login);
+app.post('/api/user/register', server.registerUser);
+app.post('/api/user/delete', server.verifyToken, server.deleteUser);
 
 // Frontend routes
 const allowedExt = ['.js', '.ico', '.css', '.png', '.jpg', '.woff2', '.woff', '.ttf', '.svg'];

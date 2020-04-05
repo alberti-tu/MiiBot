@@ -33,15 +33,13 @@ export class Database {
 
             // Creating table
             await Database.connection.query('USE ' + configuration.mariaDB.database);
-            await Database.connection.query('CREATE TABLE users (username VARCHAR(64) NOT NULL, password VARCHAR(64) NOT NULL, UNIQUE KEY unique_user (username))');
+            await Database.connection.query('CREATE TABLE users (username VARCHAR(64) NOT NULL, password VARCHAR(44) NOT NULL, UNIQUE KEY unique_user (username))');
 
             // Inserting data
             await Database.connection.query('USE ' + configuration.mariaDB.database);
             await Database.connection.query('INSERT INTO users VALUES (?, ?)', ['admin', 'admin']);
 
-            await Database.connection.query('USE ' + configuration.mariaDB.database);
-            await Database.connection.query('INSERT INTO users VALUES (?, ?)', ['test', 'test']);
-
+            // Close connection
             await Database.connection.end();
             Database.connection = null;
 
