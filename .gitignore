@@ -1,0 +1,7 @@
+# MiiBot-server
+/MiiBot-server/node_modules
+/MiiBot-server/out
+/MiiBot-server/public
+
+# MiiBot-client
+/MiiBot-client/node_modules

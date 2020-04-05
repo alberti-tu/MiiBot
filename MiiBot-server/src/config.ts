@@ -1,6 +1,6 @@
 export const configuration = {
     server: {
-        port: 3000
+        port: 80
     },
     bot: {
         token: '806141292:AAF_0ZY2VdZ4f7EzWQLDEPXrfgJnQB1Volg'

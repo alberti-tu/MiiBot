@@ -6,9 +6,7 @@
     "MiiBot-client": {
       "projectType": "application",
       "schematics": {
-        "@schematics/angular:component": {
-          "style": "scss"
-        }
+        "@schematics/angular:component": { "style": "scss" }
       },
       "root": "",
       "sourceRoot": "src",
@@ -17,28 +15,20 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/MiiBot-client",
+            "outputPath": "../MiiBot-server/public",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "aot": true,
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "src/styles.scss"
-            ],
+            "assets": [ "src/favicon.ico", "src/assets" ],
+            "styles": [ "src/styles.scss" ],
             "scripts": []
           },
           "configurations": {
             "production": {
               "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                }
+                { "replace": "src/environments/environment.ts", "with": "src/environments/environment.prod.ts" }
               ],
               "optimization": true,
               "outputHashing": "all",
@@ -49,36 +39,22 @@
               "vendorChunk": false,
               "buildOptimizer": true,
               "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
-                  "maximumError": "10kb"
-                }
+                { "type": "initial", "maximumWarning": "2mb", "maximumError": "5mb" },
+                { "type": "anyComponentStyle", "maximumWarning": "6kb", "maximumError": "10kb" }
               ]
             }
           }
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "browserTarget": "MiiBot-client:build"
-          },
+          "options": { "browserTarget": "MiiBot-client:build" },
           "configurations": {
-            "production": {
-              "browserTarget": "MiiBot-client:build:production"
-            }
+            "production": { "browserTarget": "MiiBot-client:build:production" }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "browserTarget": "MiiBot-client:build"
-          }
+          "options": { "browserTarget": "MiiBot-client:build" }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
@@ -87,27 +63,16 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "src/styles.scss"
-            ],
+            "assets": [ "src/favicon.ico", "src/assets" ],
+            "styles": [ "src/styles.scss" ],
             "scripts": []
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "tsconfig.app.json",
-              "tsconfig.spec.json",
-              "e2e/tsconfig.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "tsConfig": [ "tsconfig.app.json", "tsconfig.spec.json", "e2e/tsconfig.json" ],
+            "exclude": [ "**/node_modules/**" ]
           }
         },
         "e2e": {
@@ -117,12 +82,11 @@
             "devServerTarget": "MiiBot-client:serve"
           },
           "configurations": {
-            "production": {
-              "devServerTarget": "MiiBot-client:serve:production"
-            }
+            "production": { "devServerTarget": "MiiBot-client:serve:production" }
           }
         }
       }
-    }},
+    }
+  },
   "defaultProject": "MiiBot-client"
 }
