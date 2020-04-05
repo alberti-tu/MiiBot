@@ -1,3 +1,9 @@
+export interface Message<T> {
+    code: number; 
+    message: string;
+    result: T;
+}
+
 export interface Action {
     name: string;
     function: () => string;

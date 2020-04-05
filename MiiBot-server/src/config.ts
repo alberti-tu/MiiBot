@@ -1,6 +1,8 @@
 export const configuration = {
     server: {
-        port: 80
+        port: 80,
+        secret: 'secret',
+        timeout: '1d'
     },
     bot: {
         token: '806141292:AAF_0ZY2VdZ4f7EzWQLDEPXrfgJnQB1Volg'
