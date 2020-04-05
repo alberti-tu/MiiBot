@@ -1,1 +1,20 @@
-/* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/theming';
+
+@include mat-core();
+
+// Available color palettes: https://material.io/design/color/
+$MiiBot-client-primary: mat-palette($mat-indigo);
+$MiiBot-client-accent: mat-palette($mat-pink, A200, A100, A400);
+$MiiBot-client-warn: mat-palette($mat-red);
+$MiiBot-client-theme: mat-light-theme($MiiBot-client-primary, $MiiBot-client-accent, $MiiBot-client-warn);
+
+@include angular-material-theme($MiiBot-client-theme);
+
+html, body { 
+    height: 100%; 
+}
+
+body { 
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
