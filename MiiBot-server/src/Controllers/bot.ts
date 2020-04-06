@@ -1,8 +1,8 @@
 import Telegraf, { ContextMessageUpdate } from 'telegraf';
 import axios from 'axios';
-import * as translateService from '../Services/translate';
-import { Intent } from '../Models/interfaces';
-import { actions } from '../Services/actions';
+import * as translateService from '../Services/translateService';
+import { IntentMessage } from '../Models/http.model';
+import { actions } from '../Services/actionService';
 import { configuration } from '../config';
 
 export class MiiBot {
@@ -34,7 +34,7 @@ export class MiiBot {
     private async messageResponse(event: ContextMessageUpdate) {
         const user = await translateService.userMessage(event.update.message.text);
 
-        const response = await axios.get<Intent>(configuration.bot.url + user.target.message);
+        const response = await axios.get<IntentMessage>(configuration.bot.url + user.target.message);
         let result = response.data.prediction.topIntent;
 
         const action = actions.find(item => item.name === result);

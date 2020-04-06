@@ -9,7 +9,7 @@ export interface Action {
     function: () => string;
 }
 
-export interface Intent {
+export interface IntentMessage {
     query: string;
     prediction: {
         topIntent: string,

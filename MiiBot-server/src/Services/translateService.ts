@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { TranslateMessage } from '../Models/interfaces';
+import { TranslateMessage } from '../Models/http.model';
 import { configuration } from '../config';
 
 export async function userMessage(message: string): Promise<TranslateMessage> {

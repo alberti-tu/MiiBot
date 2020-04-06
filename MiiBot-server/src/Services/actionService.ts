@@ -1,4 +1,4 @@
-import { Action } from "../Models/interfaces";
+import { Action } from "../Models/http.model";
 
 export const actions: Action[] = [
     { name: 'Bienvenida', function: () => 'Hola' },

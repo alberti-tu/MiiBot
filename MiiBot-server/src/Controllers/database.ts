@@ -1,61 +1,25 @@
-import mariadb, { Connection } from 'mariadb';
-import { configuration } from '../config';
+import { Database } from "../Services/databaseService";
+import { StatusDatabase, UserDatabase, ActionDatabase } from "../Models/database.model";
 
-export class Database {
+const database = new Database();
+database.connect();
 
-    private static connection: Connection = null;
-    
-    constructor() { }
+export async function selectUser(username: string, password: string): Promise<UserDatabase[]> {
+    return await database.query('SELECT * FROM users WHERE username = ? AND password = ?', [ username, password ]);
+}
 
-    public async connect(): Promise<boolean> {
-        try {
-            Database.connection = await mariadb.createConnection(configuration.mariaDB);
-            await Database.connection.end();
-            Database.connection = null;
+export async function insertUser(username: string, password: string): Promise<StatusDatabase> {
+    return await database.query('INSERT INTO users VALUES (?,?)', [ username, password ]);
+}
 
-            console.log('Database connected');
-            
-            return true;
-        } catch {
-            return await this.createDatabase();
-        }
-    }
+export async function deleteUser(username: string): Promise<StatusDatabase> {
+    return await database.query('DELETE FROM users WHERE username = ?', [ username ]);
+}
 
-    public async query(sql, params = null): Promise<any[]> {
-        return await new Promise(resolve => resolve( this.querrySQL(sql, params) ));
-    }
+export async function selectHistory(page: number, size: number): Promise<ActionDatabase[]> {
+    return await database.query('SELECT * FROM history ORDER BY date DESC LIMIT ?', [ page, size ]);
+}
 
-    private async createDatabase(): Promise<boolean> {
-        try {
-            // Creating database
-            Database.connection = await mariadb.createConnection({ user: configuration.mariaDB.user, host: configuration.mariaDB.host });
-            await Database.connection.query('CREATE DATABASE ' + configuration.mariaDB.database);
-
-            // Creating table
-            await Database.connection.query('USE ' + configuration.mariaDB.database);
-            await Database.connection.query('CREATE TABLE users (username VARCHAR(64) NOT NULL, password VARCHAR(44) NOT NULL, UNIQUE KEY unique_user (username))');
-
-            // Inserting data
-            await Database.connection.query('USE ' + configuration.mariaDB.database);
-            await Database.connection.query('INSERT INTO users VALUES (?, ?)', ['admin', 'admin']);
-
-            // Close connection
-            await Database.connection.end();
-            Database.connection = null;
-
-            console.log('Database created');
-            return await this.connect();
-        } 
-        catch {
-            process.exit(1000);
-        }
-    }
-
-    private async querrySQL(sql, params): Promise<any[]> {
-        Database.connection = await mariadb.createConnection(configuration.mariaDB);
-        const result = await Database.connection.query(sql, params);
-        await Database.connection.end();
-
-        return result;
-    }
+export async function insertHistory(username: string, action: string): Promise<StatusDatabase> {
+    return await database.query('INSERT INTO history VALUES (?,?,NOW())', [ username, action ]);
 }

@@ -15,9 +15,13 @@ app.listen(configuration.server.port, () => {
 app.use(bodyParser.json());
 
 // Backend routes
-app.post('/api/user/login', server.login);
-app.post('/api/user/register', server.registerUser);
-app.post('/api/user/delete', server.verifyToken, server.deleteUser);
+app.post('/api/login', server.login);
+
+app.post('/api/user', server.verifyToken, server.registerUser);
+app.delete('/api/user', server.verifyToken, server.deleteUser);
+
+app.get('/api/action', server.verifyToken,server.getHistory);
+app.post('/api/action', server.verifyToken, server.insertAction);
 
 // Frontend routes
 const allowedExt = ['.js', '.ico', '.css', '.png', '.jpg', '.woff2', '.woff', '.ttf', '.svg'];
