@@ -34,7 +34,7 @@ export class MiiBot {
     private async messageResponse(event: ContextMessageUpdate) {
         const user = await translateService.userMessage(event.update.message.text);
 
-        const response = await axios.get<Intent>(configuration.endpoint.nlp + user.target.message);
+        const response = await axios.get<Intent>(configuration.bot.url + user.target.message);
         let result = response.data.prediction.topIntent;
 
         const action = actions.find(item => item.name === result);

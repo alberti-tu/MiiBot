@@ -2,11 +2,11 @@
 
 This project was generated with:
 
-Package                                               | Version | Optional
-------------------------------------------------------|---------|---------
-[Node JS](https://nodejs.org)                         | 12.16.1 | &#x2718;
-[Maria DB](https://mariadb.org)                       | 10.1.44 | &#x2718;
-[Angular CLI](https://github.com/angular/angular-cli) | 9.1.0   | &#x2714;
+Package                               | Version | Optional
+--------------------------------------|---------|---------
+[Node JS](https://nodejs.org)         | 12.16.1 | &#x2718;
+[Maria DB](https://mariadb.org)       | 10.1.44 | &#x2718;
+[Angular CLI](https://cli.angular.io) | 9.1.0   | &#x2714;
 
 ## 1. Installation
 
