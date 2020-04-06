@@ -51,7 +51,7 @@ export async function registerUser(req: Request<any>, res: Response<Message<bool
 export async function deleteUser(req: Request<any>, res: Response<Message<boolean>>, next: NextFunction) {
     try {
         const result = await database.deleteUser(req.query.username);
-        console.log(result);
+
         if (result.affectedRows === 1) {
             res.send({ code: 200, message: 'User deleted', result: true });
         } else {
