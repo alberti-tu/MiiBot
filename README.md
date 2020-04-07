@@ -19,9 +19,9 @@ sudo apt upgrade -y
 curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
 sudo apt install nodejs -y
 
-npm cache clean -f
-npm install -g n
-n stable
+sudo npm cache clean -f
+sudo npm install -g n
+sudo n stable
 ```
 
 Installing MariaDB server and set execution permitions
@@ -34,7 +34,7 @@ mysql --user="root" --database="mysql" --execute="update user set plugin='' wher
 Installing Angular CLI (optional)
 
 ```bash
-npm install -g @angular/cli@9.1.0
+sudo npm install -g @angular/cli@9.1.0
 ```
 
 ## 2. User interface (optional)

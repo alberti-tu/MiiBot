@@ -32,15 +32,22 @@ export class MiiBot {
     }
 
     private async messageResponse(event: ContextMessageUpdate) {
-        const user = await translateService.userMessage(event.update.message.text);
+        try {
+            const user = await translateService.userMessage(event.update.message.text);
 
-        const response = await axios.get<IntentMessage>(configuration.bot.url + user.target.message);
-        let result = response.data.prediction.topIntent;
-
-        const action = actions.find(item => item.name === result);
-        const message = action !== undefined ? action.function() : 'Lo siento, no sé como ayudarle';
-        
-        const server = await translateService.serverMessage(message, user.source.language);
-        event.reply(server.target.message);
+            const response = await axios.get<IntentMessage>(configuration.bot.url + user.target.message);
+            let result = response.data.prediction.topIntent;
+    
+            const action = actions.find(item => item.name === result);
+            const message = action !== undefined ? action.function() : 'Lo siento, no sé como ayudarle';
+            
+            const server = await translateService.serverMessage(message, user.source.language);
+            event.reply(server.target.message);
+        } 
+        catch {
+            const message = 'Mensaje no admitido';
+            const server = await translateService.serverMessage(message, event.update.message.from.language_code);
+            event.reply(server.target.message);
+        }
     }
 }
