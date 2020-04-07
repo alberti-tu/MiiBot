@@ -50,7 +50,7 @@ export async function registerUser(req: Request<any>, res: Response<Message<bool
 
 export async function deleteUser(req: Request<any>, res: Response<Message<boolean>>, next: NextFunction) {
     try {
-        const result = await database.deleteUser(req.query.username);
+        const result = await database.deleteUser(req.query.id);
 
         if (result.affectedRows === 1) {
             res.send({ code: 200, message: 'User deleted', result: true });
@@ -73,8 +73,8 @@ export async function getHistory(req: Request<any>, res: Response<Message<Action
 
 export async function insertAction(req: Request<any>, res: Response<Message<boolean>>, next: NextFunction) {
     try {
-        const result = await database.insertHistory(req.body.username, req.body.action);
-        
+        const result = await database.insertHistory(req.body.id, req.body.action);
+
         if (result.affectedRows === 1) {
             res.send({ code: 201, message: 'Action saved', result: true });
         } else {
