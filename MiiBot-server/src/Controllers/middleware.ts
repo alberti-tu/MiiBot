@@ -3,6 +3,7 @@ import crypto from 'crypto';
 import * as jwt from 'jsonwebtoken';
 import * as database from './database';
 import { Message } from '../Models/http.model';
+import { ActionDatabase } from '../Models/database.model';
 import { configuration } from '../config';
 
 export async function login(req: Request<any>, res: Response<Message<string>>, next: NextFunction) {
@@ -10,7 +11,7 @@ export async function login(req: Request<any>, res: Response<Message<string>>, n
         const result = await database.selectUser(req.body.username, req.body.password);
         
         if (result.length === 1) {
-            const token = jwt.sign({ username: result[0].username }, configuration.server.secret, { expiresIn: configuration.server.timeout });
+            const token = jwt.sign({ id: result[0].id }, configuration.server.secret, { expiresIn: configuration.server.timeout });
             res.send({ code: 200, message: 'Successful', result: token });
         } else {
             res.send({ code: 205, message: 'User not found', result: null });
@@ -61,9 +62,10 @@ export async function deleteUser(req: Request<any>, res: Response<Message<boolea
     }
 }
 
-export async function getHistory(req: Request<any>, res: Response<Message<any[]>>, next: NextFunction) {
+export async function getHistory(req: Request<any>, res: Response<Message<ActionDatabase[]>>, next: NextFunction) {
     try {
         const result = await database.selectHistory(parseInt(req.query.page), parseInt(req.query.size));
+        console.log(result);
         res.send({ code: 200, message: 'Successful', result: result });
     } catch {
         res.send({ code: 400, message: 'Error', result: null });

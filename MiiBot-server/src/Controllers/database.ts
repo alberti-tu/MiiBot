@@ -5,7 +5,7 @@ const database = new Database();
 database.connect();
 
 export async function selectUser(username: string, password: string): Promise<UserDatabase[]> {
-    return await database.query('SELECT * FROM users WHERE username = ? AND password = ?', [ username, password ]);
+    return await database.query('SELECT id FROM users WHERE username = ? AND password = ?', [ username, password ]);
 }
 
 export async function selectUserId(username: string): Promise<UserDatabase[]> {

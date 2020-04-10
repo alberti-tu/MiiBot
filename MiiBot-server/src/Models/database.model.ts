@@ -9,3 +9,10 @@ export interface UserDatabase {
     username: string;
     password: string;
 }
+
+export interface ActionDatabase {
+    id: number;
+    username: string;
+    action: string;
+    date: Date;
+}
