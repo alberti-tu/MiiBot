@@ -5,12 +5,12 @@ export const configuration = {
     },
     gpio: {
         in: {
-            close: 11,                                               // Pin number to detect the close door state
-            open: 13,                                                // Pin number to detect the open door state
+            close: 22,                                              // Pin number to detect the close door state
+            open: 23,                                               // Pin number to detect the open door state
         },
         out: {
-            pulse: 23,                                               // Pin number to send open/close square pulse
-            time: 1000                                               // Square pulse duration (ms)
+            pulse: 27,                                              // Pin number to send open/close square pulse
+            time: 1000                                              // Square pulse duration (ms)
         }
     },
     mariaDB: {
@@ -20,8 +20,8 @@ export const configuration = {
     },
     server: {
         port: 80,
-        secret: 'secret',                                            // Key to encrypt authentication tokens
-        timeout: '1d'                                                // Expiration time of the authentication token
+        secret: 'secret',                                           // Key to encrypt authentication tokens
+        timeout: '1d'                                               // Expiration time of the authentication token
     },
     translate: {
         serverLanguage: 'es',

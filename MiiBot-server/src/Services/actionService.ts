@@ -19,7 +19,7 @@ async function openDoor(username: string): Promise<string> {
     try {
         const result = await database.selectUserId(username);
         if (result.length === 1) {
-            await gpio.sendPulse(configuration.gpio.out.pulse, configuration.gpio.out.time);
+            gpio.sendPulse(configuration.gpio.out.pulse, configuration.gpio.out.time);
             await database.insertHistory(result[0].id, 'open');
             return 'Abriendo puerta ...';
         } else {
@@ -67,7 +67,7 @@ async function closeDoor(username: string): Promise<string> {
     try {
         const result = await database.selectUserId(username);
         if (result.length === 1) {
-            await gpio.sendPulse(configuration.gpio.out.pulse, configuration.gpio.out.time);
+            gpio.sendPulse(configuration.gpio.out.pulse, configuration.gpio.out.time);
             await database.insertHistory(result[0].id, 'close');
             return 'Cerrando puerta ...';
         } else {
@@ -78,6 +78,6 @@ async function closeDoor(username: string): Promise<string> {
     }
 }
 
-async function closeChat(username): Promise<string> {
+async function closeChat(username: string): Promise<string> {
     return 'Encantado de ayudarte, hasta la próxima';
 }
