@@ -13,7 +13,7 @@ export async function selectUserId(username: string): Promise<UserDatabase[]> {
 }
 
 export async function insertUser(username: string, password: string): Promise<StatusDatabase> {
-    return await database.query('INSERT INTO users VALUES (DEFAULT,?, ?)', [ username, password ]);
+    return await database.query('INSERT INTO users VALUES (DEFAULT,?,?)', [ username, password ]);
 }
 
 export async function deleteUser(id: number): Promise<StatusDatabase> {

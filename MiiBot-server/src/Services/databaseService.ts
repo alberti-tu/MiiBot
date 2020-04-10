@@ -41,7 +41,7 @@ export class Database {
 
             // Inserting data
             await Database.connection.query('USE ' + configuration.mariaDB.database);
-            await Database.connection.query('INSERT INTO users VALUES (DEFAULT,?, ?)', ['alberti_tu', 'jGl25bVBBBW96Qi9Te4V37Fnqchz/Eu4qB9vKrRIqRg=']);
+            await Database.connection.query('INSERT INTO users VALUES (DEFAULT,?,?)', ['alberti_tu', 'jGl25bVBBBW96Qi9Te4V37Fnqchz/Eu4qB9vKrRIqRg=']);
 
             // Close connection
             await Database.connection.end();
