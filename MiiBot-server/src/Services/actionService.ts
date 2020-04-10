@@ -17,23 +17,17 @@ async function welcome(username): Promise<string> {
 
 async function openDoor(username: string): Promise<string> {
     try {
-        const result = await database.selectUserId(username);
-        if (result.length === 1) {
-            gpio.sendPulse(configuration.gpio.out.pulse, configuration.gpio.out.time);
-            await database.insertHistory(result[0].id, 'open');
-            return 'Abriendo puerta ...';
-        } else {
-            return 'Lo siento pero no tienes permiso para hacer esta acción';
-        }
+        await database.insertHistory(username, 'open');
+        gpio.sendPulse(configuration.gpio.out.pulse, configuration.gpio.out.time);
+        return 'Abriendo puerta ...';
     } catch {
-        return 'Ha ocurrido un error inesperado, revise el sistema';
+        return 'Lo siento pero no tienes permiso para hacer esta acción';
     }
 }
 
 async function stateDoor(username: string): Promise<string> {
     try {
-        const result = await database.selectUserId(username);
-        if (result.length === 1) {
+        if (await database.existsUser(username)) {
             const isClosed = gpio.readPin(configuration.gpio.in.close);
             const isOpened = gpio.readPin(configuration.gpio.in.open);
             
@@ -65,16 +59,11 @@ async function stateDoor(username: string): Promise<string> {
 
 async function closeDoor(username: string): Promise<string> {
     try {
-        const result = await database.selectUserId(username);
-        if (result.length === 1) {
-            gpio.sendPulse(configuration.gpio.out.pulse, configuration.gpio.out.time);
-            await database.insertHistory(result[0].id, 'close');
-            return 'Cerrando puerta ...';
-        } else {
-            return 'Lo siento pero no tienes permiso para hacer esta acción';
-        }
+        await database.insertHistory(username, 'close');
+        gpio.sendPulse(configuration.gpio.out.pulse, configuration.gpio.out.time);
+        return 'Abriendo puerta ...';
     } catch {
-        return 'Ha ocurrido un error inesperado, revise el sistema';
+        return 'Lo siento pero no tienes permiso para hacer esta acción';
     }
 }
 

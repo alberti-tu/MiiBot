@@ -33,15 +33,15 @@ export class Database {
 
             // Creating table
             await Database.connection.query('USE ' + configuration.mariaDB.database);
-            await Database.connection.query('CREATE TABLE users (id INT AUTO_INCREMENT PRIMARY KEY, username VARCHAR(128) NOT NULL UNIQUE, password VARCHAR(44) NOT NULL)');
+            await Database.connection.query('CREATE TABLE users (id VARCHAR(64) NOT NULL UNIQUE, username VARCHAR(128) PRIMARY KEY, password VARCHAR(64) NOT NULL)');
 
             // Creating table
             await Database.connection.query('USE ' + configuration.mariaDB.database);
-            await Database.connection.query('CREATE TABLE history (ref INT AUTO_INCREMENT PRIMARY KEY, user BIGINT UNSIGNED NOT NULL, action TEXT NOT NULL, date DATETIME NOT NULL)');
+            await Database.connection.query('CREATE TABLE history (ref VARCHAR(64) PRIMARY KEY, user VARCHAR(128), action TEXT NOT NULL, date DATETIME NOT NULL, CONSTRAINT `fk_user` FOREIGN KEY (user) REFERENCES users (username))');
 
             // Inserting data
             await Database.connection.query('USE ' + configuration.mariaDB.database);
-            await Database.connection.query('INSERT INTO users VALUES (DEFAULT,?,?)', ['alberti_tu', 'jGl25bVBBBW96Qi9Te4V37Fnqchz/Eu4qB9vKrRIqRg=']);
+            await Database.connection.query('INSERT INTO users VALUES (?,?,?)', ['1', 'alberti_tu', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918']);
 
             // Close connection
             await Database.connection.end();
@@ -49,8 +49,10 @@ export class Database {
 
             console.log('Database created');
             return await this.connect();
-        } 
-        catch {
+        } catch {
+            Database.connection = await mariadb.createConnection({ user: configuration.mariaDB.user, host: configuration.mariaDB.host });
+            await Database.connection.query('DROP DATABASE ' + configuration.mariaDB.database);
+
             process.exit(1000);
         }
     }
