@@ -9,8 +9,8 @@ export const configuration = {
             open: 13,                                                // Pin number to detect the open door state
         },
         out: {
-            pulse: 15,                                               // Pin number to send open/close square pulse
-            time: 1000                                              // Square pulse duration (ms)
+            pulse: 23,                                               // Pin number to send open/close square pulse
+            time: 1000                                               // Square pulse duration (ms)
         }
     },
     mariaDB: {
@@ -20,8 +20,8 @@ export const configuration = {
     },
     server: {
         port: 80,
-        secret: 'secret',                                           // Key to encrypt authentication tokens
-        timeout: '1d'                                               // Expiration time of the authentication token
+        secret: 'secret',                                            // Key to encrypt authentication tokens
+        timeout: '1d'                                                // Expiration time of the authentication token
     },
     translate: {
         serverLanguage: 'es',
