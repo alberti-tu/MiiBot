@@ -6,7 +6,7 @@ export interface Message<T> {
 
 export interface Action {
     name: string;
-    function: () => string;
+    function: (username: string) => Promise<string>;
 }
 
 export interface IntentMessage {

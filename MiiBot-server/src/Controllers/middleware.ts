@@ -3,7 +3,6 @@ import crypto from 'crypto';
 import * as jwt from 'jsonwebtoken';
 import * as database from './database';
 import { Message } from '../Models/http.model';
-import { ActionDatabase } from '../Models/database.model';
 import { configuration } from '../config';
 
 export async function login(req: Request<any>, res: Response<Message<string>>, next: NextFunction) {
@@ -62,7 +61,7 @@ export async function deleteUser(req: Request<any>, res: Response<Message<boolea
     }
 }
 
-export async function getHistory(req: Request<any>, res: Response<Message<ActionDatabase[]>>, next: NextFunction) {
+export async function getHistory(req: Request<any>, res: Response<Message<any[]>>, next: NextFunction) {
     try {
         const result = await database.selectHistory(parseInt(req.query.page), parseInt(req.query.size));
         res.send({ code: 200, message: 'Successful', result: result });

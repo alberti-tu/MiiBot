@@ -39,7 +39,7 @@ export class MiiBot {
             let result = response.data.prediction.topIntent;
     
             const action = actions.find(item => item.name === result);
-            const message = action !== undefined ? action.function() : 'Lo siento, no sé como ayudarle';
+            const message = action !== undefined ? await action.function(event.update.message.from.username) : 'Lo siento, no sé como ayudarle';
             
             const server = await translateService.serverMessage(message, user.source.language);
             event.reply(server.target.message);

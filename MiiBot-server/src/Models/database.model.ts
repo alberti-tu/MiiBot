@@ -5,12 +5,7 @@ export interface StatusDatabase {
 }
 
 export interface UserDatabase {
+    id: number;
     username: string;
     password: string;
-}
-
-export interface ActionDatabase {
-    username: string;
-    action: string;
-    date: Date;
 }
