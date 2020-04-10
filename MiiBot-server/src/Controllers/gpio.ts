@@ -5,7 +5,7 @@ export function readPin(num: number): Number {
         const pin = new Gpio(num, 'in');
         const result = pin.readSync();
         pin.unexport();
-        return result ? 0 : 1;
+        return result ? 1 : 0;
     } else {
         return Math.round(Math.random());
     }

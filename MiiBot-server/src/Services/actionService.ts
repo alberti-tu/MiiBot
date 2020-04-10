@@ -35,16 +35,16 @@ async function stateDoor(username: string): Promise<string> {
             
             switch (isClosed.toString() + isOpened.toString()) {
                 case '00':
-                    message = 'Error en la lectura, revise el circuito'
+                    message = 'La puerta está en movimento';
                     break;
                 case '01':
-                    message = 'La puerta está cerrada'
+                    message = 'La puerta está abierta';
                     break;
                 case '10':
-                    message = 'La puerta está abierta'
+                    message = 'La puerta está cerrada';
                     break;
                 case '11':
-                    message = 'La puerta está en movimento';
+                    message = 'Error en la lectura, revise el circuito';
                     break;
             }
     
