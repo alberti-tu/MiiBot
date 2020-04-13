@@ -1,5 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import cors from 'cors';
 import path from 'path';
 import * as server from './Controllers/middleware';
 import { MiiBot } from './Controllers/bot';
@@ -12,6 +13,7 @@ app.listen(configuration.server.port, () => {
     console.log('Server is listening on http://[...]:' + configuration.server.port);
 });
 
+app.use(cors());
 app.use(bodyParser.json());
 
 // Backend routes

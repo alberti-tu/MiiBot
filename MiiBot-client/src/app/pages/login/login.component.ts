@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from 'src/app/services/authentication.service';
+import { HttpService } from 'src/app/services/http.service';
 
 @Component({
   selector: 'app-login',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  constructor(private authService: AuthenticationService, private httpService: HttpService) { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
+  }
+
+  public async login(form: { username: string, password: string }): Promise<void> {
+    const response = await this.httpService.login(form.username, form.password);
+    response.subscribe(data => {
+      console.log(data);
+      this.authService.saveToken(data.result)
+    });
   }
 
 }
