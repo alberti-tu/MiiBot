@@ -11,11 +11,11 @@ export class LoginComponent implements OnInit {
 
   constructor(private authService: AuthenticationService, private httpService: HttpService) { }
 
-  public ngOnInit(): void {
-  }
+  public ngOnInit(): void {}
 
   public async login(form: { username: string, password: string }): Promise<void> {
-    const response = await this.httpService.login(form.username, form.password);
+    const passwordHash = this.authService.hash(form.password);
+    const response = await this.httpService.login(form.username, passwordHash);
     response.subscribe(data => {
       console.log(data);
       this.authService.saveToken(data.result)

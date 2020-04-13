@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import * as crypto from 'crypto-js';
 
 const key = 'token'; 
 
@@ -18,4 +19,8 @@ export class AuthenticationService {
   public removeToken(): void {
     localStorage.removeItem(key);
   }
+
+  public hash(value: string): string {
+    return crypto.SHA256(value).toString(crypto.enc.Hex);
+  } 
 }
