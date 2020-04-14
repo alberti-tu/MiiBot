@@ -17,7 +17,6 @@ export class LoginComponent implements OnInit {
     const passwordHash = this.authService.hash(form.password);
     const response = await this.httpService.login(form.username, passwordHash);
     response.subscribe(data => {
-      console.log(data);
       this.authService.saveToken(data.result)
     });
   }
