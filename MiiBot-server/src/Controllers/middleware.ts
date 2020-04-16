@@ -13,10 +13,10 @@ export async function login(req: Request<any>, res: Response<Message<string>>, n
             const token = jwt.sign(result[0], configuration.server.secret, { expiresIn: configuration.server.timeout });
             res.status(200).send({ code: 200, message: 'Successful', result: token });
         } else {
-            res.status(404).send({ code: 404, message: 'User not found', result: null });
+            res.status(200).send({ code: 404, message: 'User not found', result: null });
         }
     } catch {
-        res.status(400).send({ code: 400, message: 'Error', result: null });
+        res.status(400).send({ code: 400, message: 'Bad Request', result: null });
     }
 }
 
@@ -35,7 +35,7 @@ export async function registerUser(req: Request<any>, res: Response<Message<bool
         await database.insertUser(req.body.username, req.body.password);
         res.status(201).send({ code: 201, message: 'User created', result: true });
     } catch {
-        res.status(400).send({ code: 400, message: 'Error', result: false });
+        res.status(400).send({ code: 400, message: 'Bad Request', result: false });
     }
 }
 
@@ -46,10 +46,10 @@ export async function deleteUser(req: Request<any>, res: Response<Message<boolea
         if (result.affectedRows === 1) {
             res.status(200).send({ code: 200, message: 'User deleted', result: true });
         } else {
-            res.status(404).send({ code: 404, message: 'User not found', result: false });
+            res.status(200).send({ code: 404, message: 'User not found', result: false });
         }
     } catch {
-        res.status(400).send({ code: 400, message: 'Error', result: false });
+        res.status(400).send({ code: 400, message: 'Bad Request', result: false });
     }
 }
 
@@ -58,7 +58,7 @@ export async function getHistory(req: Request<any>, res: Response<Message<Action
         const result = await database.selectHistory(parseInt(req.query.page), parseInt(req.query.size));
         res.status(200).send({ code: 200, message: 'Successful', result: result });
     } catch {
-        res.status(400).send({ code: 400, message: 'Error', result: null });
+        res.status(400).send({ code: 400, message: 'Bad Request', result: null });
     }
 }
 
@@ -67,6 +67,6 @@ export async function insertAction(req: Request<any>, res: Response<Message<bool
         await database.insertHistory(req.body.username, req.body.action);
         res.status(201).send({ code: 201, message: 'Action saved', result: true });
     } catch {
-        res.status(400).send({ code: 400, message: 'Error', result: false });
+        res.status(400).send({ code: 400, message: 'Bad Request', result: false });
     }
 }

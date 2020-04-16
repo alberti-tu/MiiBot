@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { HttpService } from 'src/app/services/http.service';
+import { AdviceService } from 'src/app/services/advice.service';
 
 @Component({
   selector: 'app-login',
@@ -9,7 +10,7 @@ import { HttpService } from 'src/app/services/http.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private authService: AuthenticationService, private httpService: HttpService) { }
+  constructor(private adviceService: AdviceService, private authService: AuthenticationService, private httpService: HttpService) { }
 
   public ngOnInit(): void {}
 
@@ -17,7 +18,13 @@ export class LoginComponent implements OnInit {
     const passwordHash = this.authService.hash(form.password);
     const response = await this.httpService.login(form.username, passwordHash);
     response.subscribe(data => {
-      this.authService.saveToken(data.result)
+      this.adviceService.showToast('test');
+      if (data.code === 200) {
+        this.authService.saveToken(data.result);
+      } else {
+        this.authService.removeToken();
+        this.adviceService.showToast('Usuario y/o contraseña incorrecto');
+      }
     });
   }
 

@@ -4,11 +4,12 @@ import { Observable, of } from "rxjs";
 import { tap, catchError } from "rxjs/operators";
 import { AuthenticationService } from './authentication.service';
 import { Response } from '../models/responses'; 
+import { AdviceService } from './advice.service';
 
 @Injectable()
 export class HttpServiceInterceptor implements HttpInterceptor {
 
-  constructor(private authService: AuthenticationService) {}
+  constructor(private adviceService: AdviceService, private authService: AuthenticationService) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<Response<any>>> {
     const token = this.authService.getToken();
@@ -30,10 +31,8 @@ export class HttpServiceInterceptor implements HttpInterceptor {
               console.log('Error');  
               break;
             case 401: 
-              console.log('Unauthorized');
-              break;
-            case 404:
-              console.log('Not found');
+              this.authService.removeToken();
+              this.adviceService.showToast('La sesión ha expirado, por favor, vuelva a iniciar sesión');
               break;
           }
         }
