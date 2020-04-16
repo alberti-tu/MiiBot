@@ -22,6 +22,7 @@ app.post('/api/login', server.login);
 app.post('/api/user', server.verifyToken, server.registerUser);
 app.delete('/api/user', server.verifyToken, server.deleteUser);
 
+app.get('/api/action/count', server.verifyToken,server.getHistoryCount);
 app.get('/api/action', server.verifyToken,server.getHistory);
 app.post('/api/action', server.verifyToken, server.insertAction);
 

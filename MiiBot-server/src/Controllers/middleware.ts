@@ -53,6 +53,15 @@ export async function deleteUser(req: Request<any>, res: Response<Message<boolea
     }
 }
 
+export async function getHistoryCount(req: Request<any>, res: Response<Message<ActionDatabase[]>>, next: NextFunction) {
+    try {
+        const result = await database.selectHistoryCount();
+        res.status(200).send({ code: 200, message: 'Successful', result: result[0]['COUNT(*)'] });
+    } catch {
+        res.status(400).send({ code: 400, message: 'Bad Request', result: null });
+    }
+}
+
 export async function getHistory(req: Request<any>, res: Response<Message<ActionDatabase[]>>, next: NextFunction) {
     try {
         const result = await database.selectHistory(parseInt(req.query.page), parseInt(req.query.size));

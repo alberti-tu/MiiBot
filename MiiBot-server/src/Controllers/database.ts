@@ -24,6 +24,10 @@ export async function deleteUser(id: number): Promise<StatusDatabase> {
     return await database.query('DELETE FROM users WHERE id = ?', [ id ]);
 }
 
+export async function selectHistoryCount(): Promise<any> {
+    return await database.query('SELECT COUNT(*) FROM history');
+}
+
 export async function selectHistory(page: number, size: number): Promise<any[]> {
     return await database.query('SELECT * FROM history ORDER BY date DESC LIMIT ? OFFSET ?', [ size, page ]);
 }

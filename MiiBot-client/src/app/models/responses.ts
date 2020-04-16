@@ -3,3 +3,10 @@ export interface Response<T> {
     message: string;
     result: T;
 }
+
+export interface Action {
+    ref: string;
+    action: string;
+    user: string;
+    date: Date;
+}
