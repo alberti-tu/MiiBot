@@ -11,8 +11,8 @@ export interface UserDatabase {
 }
 
 export interface ActionDatabase {
-    id: number;
-    username: string;
+    ref: number;
+    user: string;
     action: string;
     date: Date;
 }
