@@ -19,7 +19,6 @@ export class HttpService {
   }
 
   public async getActionList(page: number, size: number): Promise<Observable<Response<Action[]>>> {
-    console.log(page, size)
     const params = new HttpParams().set('page', page.toString()).set('size', size.toString());
     return this.http.get<Response<Action[]>>(environment.url + '/api/action', { params });
   }

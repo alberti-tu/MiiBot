@@ -1,3 +1,5 @@
-<p>home works!</p>
+<div *ngFor="let item of actionList">
+    <p>{{ item.action }} {{ item.user }} {{ item.date | date: 'd/MM/yyyy H:mm' }}</p>
+</div>
 
 <mat-paginator [length]="length" [pageSize]="10" [pageSizeOptions]="sizeOptions" (page)="pager($event)"></mat-paginator>
