@@ -22,9 +22,7 @@ export class HomeComponent implements OnInit {
 
   public async getData(page: number, size: number): Promise<void> {
     const response1 = await this.httpService.getActionListCount();
-    response1.subscribe(data => {
-      this.length = data.result
-    });
+    response1.subscribe(data => this.length = data.result);
 
     const response2 = await this.httpService.getActionList(page, size);
     response2.subscribe(data => {
@@ -42,10 +40,6 @@ export class HomeComponent implements OnInit {
 
   public pager(event: { length: number, pageIndex: number, pageSize: number, previousPageIndex: number }): void {
     this.getData(event.pageIndex, event.pageSize);
-  }
-
-  public sortData(event: { active: string, direction: string }): void {
-    console.log(event);
   }
 
 }

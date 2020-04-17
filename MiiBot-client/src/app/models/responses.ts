@@ -6,7 +6,7 @@ export interface Response<T> {
 
 export interface Action {
     ref: string;
-    action: string;
     user: string;
+    action: string;
     date: Date;
 }
