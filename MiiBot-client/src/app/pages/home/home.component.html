@@ -1,5 +1,14 @@
-<div *ngFor="let item of actionList">
-    <p>{{ item.action }} {{ item.user }} {{ item.date | date: 'd/MM/yyyy H:mm' }}</p>
-</div>
+<table>
+    <tr class="tableHeaderRow">
+      <th>Usuario</th><th>Acción</th><th>Fecha</th><th>Hora</th>
+    </tr>
+  
+    <tr *ngFor="let item of actionList" class="tableContentRow">
+      <td>{{ item.user }}</td>
+      <td>{{ item.action }}</td>
+      <td>{{ item.date | date: 'd/M/yyyy' }}</td>
+      <td>{{ item.date | date: 'H:mm' }}</td>
+    </tr>
+</table>
 
 <mat-paginator [length]="length" [pageSize]="10" [pageSizeOptions]="sizeOptions" (page)="pager($event)"></mat-paginator>

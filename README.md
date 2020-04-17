@@ -39,7 +39,7 @@ sudo npm install -g @angular/cli@9.1.0
 
 ## 2. User interface (optional)
 
-If you want to add a user interface (UI) in order to manage the system, execute the following commands in a shell window.
+If you want to add a different user interface (UI) in order to manage the system, execute the following commands in a shell window after editing the folder project MiiBot-client.
 
 ```bash
 cd MiiBot-client

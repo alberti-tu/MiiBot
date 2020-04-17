@@ -44,4 +44,8 @@ export class HomeComponent implements OnInit {
     this.getData(event.pageIndex, event.pageSize);
   }
 
+  public sortData(event: { active: string, direction: string }): void {
+    console.log(event);
+  }
+
 }
