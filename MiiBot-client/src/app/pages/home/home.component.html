@@ -1,15 +1,13 @@
-<app-navbar></app-navbar>
-
 <table>
     <tr class="tableHeaderRow">
-      <th>Usuario</th><th>Acción</th><th>Fecha</th><th>Hora</th>
+        <th>Usuario</th><th>Acción</th><th>Fecha</th><th>Hora</th>
     </tr>
-  
+
     <tr *ngFor="let item of actionList" class="tableContentRow">
-      <td>{{ item.user }}</td>
-      <td>{{ item.action }}</td>
-      <td>{{ item.date | date: 'd/M/yyyy' }}</td>
-      <td>{{ item.date | date: 'H:mm' }}</td>
+        <td>{{ item.user }}</td>
+        <td>{{ item.action }}</td>
+        <td>{{ item.date | date: 'd/M/yyyy' }}</td>
+        <td>{{ item.date | date: 'H:mm' }}</td>
     </tr>
 </table>
 
