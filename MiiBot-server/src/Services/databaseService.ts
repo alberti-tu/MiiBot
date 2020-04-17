@@ -37,7 +37,7 @@ export class Database {
 
             // Creating table
             await Database.connection.query('USE ' + configuration.mariaDB.database);
-            await Database.connection.query('CREATE TABLE history (ref VARCHAR(64) PRIMARY KEY, user VARCHAR(128), action TEXT NOT NULL, date DATETIME NOT NULL, CONSTRAINT `fk_user` FOREIGN KEY (user) REFERENCES users (username))');
+            await Database.connection.query('CREATE TABLE history (ref VARCHAR(64) PRIMARY KEY, user VARCHAR(128), action TEXT NOT NULL, date TIMESTAMP NOT NULL, CONSTRAINT `fk_user` FOREIGN KEY (user) REFERENCES users (username))');
 
             // Inserting data
             await Database.connection.query('USE ' + configuration.mariaDB.database);
