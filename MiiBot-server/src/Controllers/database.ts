@@ -32,9 +32,9 @@ database.checkDatabase().then(result => {
 
 // Telegram user's functions
 
-export async function selectUser(username: string): Promise<boolean> {
-    const result = await database.query('SELECT * FROM users WHERE username = ?', [ username ]);
-    return result.length === 1 ? true : false;
+export async function verifyUser(username: string): Promise<boolean> {
+    const result = await database.query('SELECT COUNT(*) FROM users WHERE username = ?', [ username ]);
+    return result[0]['COUNT(*)'] === 1 ? true : false;
 }
 
 export async function insertUser(username: string): Promise<StatusDatabase> {
@@ -48,8 +48,13 @@ export async function deleteUser(id: number): Promise<StatusDatabase> {
 
 // Admin's functions
 
+export async function verifyAdmin(id: string): Promise<boolean> {
+    const result = await database.query('SELECT COUNT(*) FROM admins WHERE id = ?', [ id ]);
+    return result[0]['COUNT(*)'] === 1 ? true : false;
+}
+
 export async function selectUserAdmin(username: string, password: string): Promise<UserDatabase[]> {
-    return await database.query('SELECT id, username FROM admins WHERE username = ? AND password = ?', [ username, password ]);
+    return await database.query('SELECT id FROM admins WHERE username = ? AND password = ?', [ username, password ]);
 }
 
 export async function insertUserAdmin(username: string, password: string): Promise<StatusDatabase> {
@@ -64,8 +69,9 @@ export async function deleteUserAdmin(id: number): Promise<StatusDatabase> {
 
 // Action's functions
 
-export async function selectHistoryCount(): Promise<any> {
-    return await database.query('SELECT COUNT(*) FROM history');
+export async function selectHistoryCount(): Promise<number> {
+    const result = await database.query('SELECT COUNT(*) FROM history');
+    return result[0]['COUNT(*)'];
 }
 
 export async function selectHistory(page: number, size: number): Promise<any[]> {

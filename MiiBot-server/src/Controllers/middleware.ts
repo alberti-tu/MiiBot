@@ -20,11 +20,17 @@ export async function login(req: Request<any>, res: Response<Message<string>>, n
     }
 }
 
-export function verifyToken(req: Request<any>, res: Response<Message<string>>, next: NextFunction) {
+export async function verifyToken(req: Request<any>, res: Response<Message<string>>, next: NextFunction) {
     try {
-        const token = req.headers.authorization;
-        res.locals = jwt.verify(token, configuration.server.secret);
-        next();
+        const token: { id: string, iat: number, exp: number } = JSON.parse(JSON.stringify(jwt.verify(req.headers.authorization, configuration.server.secret)));
+        const result = await database.verifyAdmin(token.id);
+
+        if (result) {
+            res.locals = token.id;
+            next();
+        } else {
+            res.status(401).send({ code: 401, message: 'Unauthorized', result: null });
+        }
     } catch {
         res.status(401).send({ code: 401, message: 'Unauthorized', result: null });
     }
@@ -76,10 +82,10 @@ export async function deleteAdmin(req: Request<any>, res: Response<Message<boole
     }
 }
 
-export async function getHistoryCount(req: Request<any>, res: Response<Message<ActionDatabase[]>>, next: NextFunction) {
+export async function getHistoryCount(req: Request<any>, res: Response<Message<number>>, next: NextFunction) {
     try {
         const result = await database.selectHistoryCount();
-        res.status(200).send({ code: 200, message: 'Successful', result: result[0]['COUNT(*)'] });
+        res.status(200).send({ code: 200, message: 'Successful', result: result });
     } catch {
         res.status(400).send({ code: 400, message: 'Bad Request', result: null });
     }
