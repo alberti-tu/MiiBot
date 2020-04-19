@@ -3,7 +3,6 @@ import { Database } from '../Services/databaseService';
 import { StatusDatabase, UserDatabase } from '../Models/database.model';
 
 const database = new Database();
-database.connect();
 
 export async function selectUser(username: string, password: string): Promise<UserDatabase[]> {
     return await database.query('SELECT id, username FROM users WHERE username = ? AND password = ?', [ username, password ]);

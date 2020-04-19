@@ -1,67 +1,59 @@
-import mariadb, { Connection } from 'mariadb';
+import mariadb from 'mariadb';
 import { configuration } from '../config';
 
 export class Database {
 
-    private static connection: Connection = null;
-    
-    constructor() { }
+    constructor() {
+        this.checkDatabase();
+    }
 
-    public async connect(): Promise<boolean> {
+    public query(sql: string, params: any[] = null): Promise<any> {
+        return new Promise(async resolve => {
+            const connection = await mariadb.createConnection(configuration.mariaDB);
+            const result = await connection.query(sql, params);
+            await connection.end();
+    
+            resolve(result);
+        });
+    }
+
+    private async checkDatabase() {
         try {
-            Database.connection = await mariadb.createConnection(configuration.mariaDB);
-            await Database.connection.end();
-            Database.connection = null;
+            const connection = await mariadb.createConnection(configuration.mariaDB);
+            await connection.end();
 
             console.log('Database connected');
-            
-            return true;
         } catch {
-            return await this.createDatabase();
+            await this.createDatabase();
         }
     }
 
-    public async query(sql: string, params: any[] = null): Promise<any> {
-        return await new Promise(resolve => resolve( this.querrySQL(sql, params) ));
-    }
-
-    private async createDatabase(): Promise<boolean> {
+    private async createDatabase() {
         try {
+            const connection = await mariadb.createConnection({ user: configuration.mariaDB.user, host: configuration.mariaDB.host });
+            
             // Creating database
-            Database.connection = await mariadb.createConnection({ user: configuration.mariaDB.user, host: configuration.mariaDB.host });
-            await Database.connection.query('CREATE DATABASE ' + configuration.mariaDB.database);
-
-            // Creating table
-            await Database.connection.query('USE ' + configuration.mariaDB.database);
-            await Database.connection.query('CREATE TABLE users (id VARCHAR(64) NOT NULL UNIQUE, username VARCHAR(128) PRIMARY KEY, password VARCHAR(64) NOT NULL)');
-
-            // Creating table
-            await Database.connection.query('USE ' + configuration.mariaDB.database);
-            await Database.connection.query('CREATE TABLE history (ref VARCHAR(64) PRIMARY KEY, user VARCHAR(128), action TEXT NOT NULL, date TIMESTAMP NOT NULL, CONSTRAINT `fk_user` FOREIGN KEY (user) REFERENCES users (username))');
+            await connection.query('CREATE DATABASE ' + configuration.mariaDB.database);
+            await connection.query('USE ' + configuration.mariaDB.database);
+            await connection.query('CREATE TABLE users (id VARCHAR(64) NOT NULL UNIQUE, username VARCHAR(128) PRIMARY KEY, password VARCHAR(64) NOT NULL)');
+            await connection.query('CREATE TABLE history (ref VARCHAR(64) PRIMARY KEY, user VARCHAR(128), action TEXT NOT NULL, date TIMESTAMP NOT NULL, CONSTRAINT `fk_user` FOREIGN KEY (user) REFERENCES users (username))');
 
             // Inserting data
-            await Database.connection.query('USE ' + configuration.mariaDB.database);
-            await Database.connection.query('INSERT INTO users VALUES (?,?,?)', ['1', 'alberti_tu', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918']);
+            await connection.query('INSERT INTO users VALUES (?,?,?)', ['1', 'alberti_tu', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918']);
 
-            // Close connection
-            await Database.connection.end();
-            Database.connection = null;
+            await connection.end();
 
             console.log('Database created');
-            return await this.connect();
+
+            this.checkDatabase();
         } catch {
-            Database.connection = await mariadb.createConnection({ user: configuration.mariaDB.user, host: configuration.mariaDB.host });
-            await Database.connection.query('DROP DATABASE ' + configuration.mariaDB.database);
+            const connection = await mariadb.createConnection({ user: configuration.mariaDB.user, host: configuration.mariaDB.host });
+            await connection.query('DROP DATABASE ' + configuration.mariaDB.database);
+            await connection.end();
+
+            console.log('Drop database ' + configuration.mariaDB.database);
 
             process.exit(1000);
         }
-    }
-
-    private async querrySQL(sql: string, params: any[] = null): Promise<any> {
-        Database.connection = await mariadb.createConnection(configuration.mariaDB);
-        const result = await Database.connection.query(sql, params);
-        await Database.connection.end();
-
-        return result;
     }
 }
