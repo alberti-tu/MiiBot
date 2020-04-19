@@ -39,7 +39,7 @@ export class HomeComponent implements OnInit {
   }
 
   public pager(event: { length: number, pageIndex: number, pageSize: number, previousPageIndex: number }): void {
-    this.getData(event.pageIndex, event.pageSize);
+    this.getData(event.pageIndex * event.pageSize, event.pageSize);
   }
 
 }
