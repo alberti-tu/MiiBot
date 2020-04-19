@@ -28,7 +28,7 @@ export class HttpServiceInterceptor implements HttpInterceptor {
         if (response instanceof HttpErrorResponse) {
           switch (response.status) {
             case 400:
-              console.log('Error');  
+              this.adviceService.showToast('No se ha podido realizar esa acción, por favor, vuelva a intentarlo'); 
               break;
             case 401: 
               this.authService.removeToken();

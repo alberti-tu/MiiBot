@@ -27,7 +27,7 @@ async function openDoor(username: string): Promise<string> {
 
 async function stateDoor(username: string): Promise<string> {
     try {
-        if (await database.existsUser(username)) {
+        if (await database.selectUser(username)) {
             const isClosed = gpio.readPin(configuration.gpio.in.close);
             const isOpened = gpio.readPin(configuration.gpio.in.open);
             

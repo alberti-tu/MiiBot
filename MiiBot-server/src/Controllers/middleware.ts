@@ -7,7 +7,7 @@ import { configuration } from '../config';
 
 export async function login(req: Request<any>, res: Response<Message<string>>, next: NextFunction) {
     try {
-        const result = await database.selectUser(req.body.username, req.body.password);
+        const result = await database.selectUserAdmin(req.body.username, req.body.password);
         
         if (result.length === 1) {
             const token = jwt.sign(result[0], configuration.server.secret, { expiresIn: configuration.server.timeout });
@@ -32,7 +32,7 @@ export function verifyToken(req: Request<any>, res: Response<Message<string>>, n
 
 export async function registerUser(req: Request<any>, res: Response<Message<boolean>>, next: NextFunction) {
     try {
-        await database.insertUser(req.body.username, req.body.password);
+        await database.insertUser(req.body.username);
         res.status(201).send({ code: 201, message: 'User created', result: true });
     } catch {
         res.status(400).send({ code: 400, message: 'Bad Request', result: false });
@@ -42,6 +42,29 @@ export async function registerUser(req: Request<any>, res: Response<Message<bool
 export async function deleteUser(req: Request<any>, res: Response<Message<boolean>>, next: NextFunction) {
     try {
         const result = await database.deleteUser(req.query.id);
+
+        if (result.affectedRows === 1) {
+            res.status(200).send({ code: 200, message: 'User deleted', result: true });
+        } else {
+            res.status(200).send({ code: 404, message: 'User not found', result: false });
+        }
+    } catch {
+        res.status(400).send({ code: 400, message: 'Bad Request', result: false });
+    }
+}
+
+export async function registerAdmin(req: Request<any>, res: Response<Message<boolean>>, next: NextFunction) {
+    try {
+        await database.insertUserAdmin(req.body.username, req.body.password);
+        res.status(201).send({ code: 201, message: 'User created', result: true });
+    } catch {
+        res.status(400).send({ code: 400, message: 'Bad Request', result: false });
+    }
+}
+
+export async function deleteAdmin(req: Request<any>, res: Response<Message<boolean>>, next: NextFunction) {
+    try {
+        const result = await database.deleteUserAdmin(req.query.id);
 
         if (result.affectedRows === 1) {
             res.status(200).send({ code: 200, message: 'User deleted', result: true });

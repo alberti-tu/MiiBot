@@ -2,6 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import path from 'path';
+import helmet from 'helmet';
 import * as server from './Controllers/middleware';
 import { MiiBot } from './Controllers/bot';
 import { configuration } from './config';
@@ -14,6 +15,7 @@ app.listen(configuration.server.port, () => {
 });
 
 app.use(cors());
+app.use(helmet());
 app.use(bodyParser.json());
 
 // Backend routes
@@ -22,9 +24,12 @@ app.post('/api/login', server.login);
 app.post('/api/user', server.verifyToken, server.registerUser);
 app.delete('/api/user', server.verifyToken, server.deleteUser);
 
-app.get('/api/action/count', server.verifyToken,server.getHistoryCount);
+app.post('/api/admin', server.verifyToken, server.registerAdmin);
+app.delete('/api/admin', server.verifyToken, server.deleteAdmin);
+
 app.get('/api/action', server.verifyToken,server.getHistory);
 app.post('/api/action', server.verifyToken, server.insertAction);
+app.get('/api/action/count', server.verifyToken,server.getHistoryCount);
 
 // Frontend routes
 const allowedExt = ['.js', '.ico', '.css', '.png', '.jpg', '.woff2', '.woff', '.ttf', '.svg'];

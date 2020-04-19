@@ -22,4 +22,14 @@ export class HttpService {
     const params = new HttpParams().set('page', page.toString()).set('size', size.toString());
     return this.http.get<Response<Action[]>>(environment.url + '/api/action', { params });
   }
+
+  public async registerUser(username: string): Promise<Observable<Response<boolean>>> {
+    const body = { username };
+    return this.http.post<Response<boolean>>(environment.url + '/api/user', body);
+  }
+
+  public async registerAdmin(username: string, password: string): Promise<Observable<Response<boolean>>> {
+    const body = { username, password };
+    return this.http.post<Response<boolean>>(environment.url + '/api/admin', body);
+  }
 }
