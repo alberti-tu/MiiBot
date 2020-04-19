@@ -51,7 +51,7 @@ export class Database {
 
             console.log('Drop database ' + configuration.mariaDB.database);
 
-            process.exit(1000);
+            process.exit(1);
         }
     }
 }

@@ -19,6 +19,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatRadioModule, MAT_RADIO_DEFAULT_OPTIONS } from '@angular/material/radio';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -44,12 +45,14 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
+    MatRadioModule,
     MatPaginatorModule,
     MatSidenavModule,
     MatSnackBarModule,
     MatToolbarModule
   ],
   providers: [
+    { provide: MAT_RADIO_DEFAULT_OPTIONS, useValue: { color: 'primary' } },
     { provide: HTTP_INTERCEPTORS, useClass: HttpServiceInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]

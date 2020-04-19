@@ -9,6 +9,14 @@ mat-card {
             font-size: 32px;
         }
 
+        mat-radio-group {
+            mat-radio-button {
+                margin: 16px 0px;
+                font-size: 18px;
+                display: block;
+            }
+        }
+
         mat-form-field {
             display: block;
             font-size: 18px;

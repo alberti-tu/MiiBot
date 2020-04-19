@@ -1,24 +1,26 @@
-<form #registerForm="ngForm" (ngSubmit)="addUser(registerForm.form.value)">
+<form #registerForm="ngForm" (ngSubmit)="saveUser(registerForm.form.value)">
     <mat-card>
         <mat-card-content>
             <mat-card-title>Añadir usuario</mat-card-title>
+
+            <mat-radio-group name="option" [(ngModel)]="option">
+                <mat-radio-button *ngFor="let item of optionList" [value]="item.value">{{ item.name }}</mat-radio-button>
+            </mat-radio-group>
 
             <mat-form-field>
                 <mat-label>Usuario</mat-label>
                 <input matInput name="username" type="text" ngModel required>
             </mat-form-field>
 
-            <!--
-            <mat-form-field>
+            <mat-form-field *ngIf="option === 'admin'">
                 <mat-label>Contraseña</mat-label>
                 <input matInput name="password1" type="password" ngModel required>
             </mat-form-field>
 
-            <mat-form-field>
+            <mat-form-field *ngIf="option === 'admin'">
                 <mat-label>Confirmar contraseña</mat-label>
                 <input matInput name="password2" type="password" ngModel required>
             </mat-form-field>
-            -->
         </mat-card-content>
         <mat-card-actions>
             <button mat-raised-button color="primary" type="submit" [disabled]="!registerForm.form.valid">Guardar</button>

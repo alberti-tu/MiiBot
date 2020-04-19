@@ -6,7 +6,7 @@ import { StatusDatabase, UserDatabase } from '../Models/database.model';
 const database = new Database();
 database.checkDatabase().then(result => {
     if (result) {
-        console.log('Database connected');
+        console.log('Database connected\n');
     } else {
         const read = readline.createInterface({ input: process.stdin, output: process.stdout });
         
@@ -18,9 +18,10 @@ database.checkDatabase().then(result => {
                 const result = await insertUserAdmin(username, password);
                 
                 if (result.affectedRows === 1) {
-                    console.log('User added to database');
+                    console.log('User added to database\n');
                 } else {
-                    console.log('Error: User not added');
+                    console.log('Error: User not added\n');
+                    process.exit(2);
                 }
                 
                 read.close();
