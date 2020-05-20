@@ -13,7 +13,7 @@ export class MainComponent implements OnInit {
 
   public pageList: { name: string, url: string }[] = [];
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) {}
 
   public ngOnInit(): void {
     this.pageList = [

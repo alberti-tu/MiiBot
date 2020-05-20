@@ -10,10 +10,11 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: '', component: MainComponent, canActivate: [AuthenticationService], children: [
       { path: 'home', component: HomeComponent },
-      { path: 'register', component: RegisterComponent }
+      { path: 'register', component: RegisterComponent },
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
     ]
   },
-  { path: '**', redirectTo: '/home', pathMatch: 'full' }
+  { path: '**', redirectTo: 'home', pathMatch: 'full' }
 ];
 
 @NgModule({
