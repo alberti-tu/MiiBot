@@ -10,7 +10,7 @@ import { HttpServiceInterceptor } from './services/http.interceptor';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login.component';
-import { NavbarComponent } from './components/navbar/navbar.component';
+import { MainComponent } from './pages/main/main.component';
 import { HomeComponent } from './pages/home/home.component';
 import { RegisterComponent } from './pages/register/register.component';
 
@@ -19,6 +19,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatListModule } from '@angular/material/list';
 import { MatRadioModule, MAT_RADIO_DEFAULT_OPTIONS } from '@angular/material/radio';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -29,7 +30,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
   declarations: [
     AppComponent,
     LoginComponent,
-    NavbarComponent,
+    MainComponent,
     HomeComponent,
     RegisterComponent
   ],
@@ -45,6 +46,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
+    MatListModule,
     MatRadioModule,
     MatPaginatorModule,
     MatSidenavModule,
