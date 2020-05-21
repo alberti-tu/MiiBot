@@ -1,20 +1,16 @@
 <mat-toolbar color="primary">
-    <button mat-icon-button (click)="sideMenu.toggle()">
-        <mat-icon>menu</mat-icon>
-    </button> 
-
-    <mat-label>
-        <p>MiiBot</p>
-    </mat-label> 
+    <mat-icon matRipple [matRippleCentered]="true" (click)="sideMenu.toggle()">menu</mat-icon>
+    <mat-label>MiiBot</mat-label>
 </mat-toolbar>
 
 <mat-sidenav-container>
     <mat-sidenav #sideMenu mode="over">
         <mat-selection-list [multiple]="false">
             <mat-list-option *ngFor="let page of pageList" (click)="page.action()">
-                <mat-label>
-                    <mat-icon>{{ page.icon }}</mat-icon>{{ page.name }}
-                </mat-label>
+                <div>
+                    <mat-icon>{{ page.icon }}</mat-icon>
+                    <mat-label>{{ page.name }}</mat-label>
+                </div>
             </mat-list-option>
         </mat-selection-list>
     </mat-sidenav>
