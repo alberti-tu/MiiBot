@@ -11,7 +11,11 @@
 <mat-sidenav-container>
     <mat-sidenav #sideMenu mode="over">
         <mat-selection-list [multiple]="false">
-            <mat-list-option *ngFor="let page of pageList" (click)="navigateTo(page)">{{ page.name }}</mat-list-option>
+            <mat-list-option *ngFor="let page of pageList" (click)="page.action()">
+                <mat-label>
+                    <mat-icon>{{ page.icon }}</mat-icon>{{ page.name }}
+                </mat-label>
+            </mat-list-option>
         </mat-selection-list>
     </mat-sidenav>
 
