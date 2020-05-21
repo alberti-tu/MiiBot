@@ -11,8 +11,8 @@ import { HttpServiceInterceptor } from './services/http.interceptor';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login.component';
 import { MainComponent } from './pages/main/main.component';
-import { HomeComponent } from './pages/home/home.component';
-import { RegisterComponent } from './pages/register/register.component';
+import { HomeComponent } from './pages/main/home/home.component';
+import { RegisterComponent } from './pages/main/register/register.component';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
