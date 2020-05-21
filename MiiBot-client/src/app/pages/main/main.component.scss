@@ -1,8 +1,18 @@
+mat-toolbar {
+    mat-label {
+        p {
+            padding: 5px 0px 3px;
+            margin: 0px;
+        }
+    }
+}
+
 mat-sidenav-container {
     height: calc(100% - 64px);
     
     mat-sidenav {
-        width: 25%;
+        max-width: 384px;
+        width: 75%;
     }
     
     mat-sidenav-content {
