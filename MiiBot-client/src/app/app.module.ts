@@ -13,6 +13,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { MainComponent } from './pages/main/main.component';
 import { HomeComponent } from './pages/main/home/home.component';
 import { RegisterComponent } from './pages/main/register/register.component';
+import { ManagementComponent } from './pages/main/management/management.component';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -33,7 +34,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     LoginComponent,
     MainComponent,
     HomeComponent,
-    RegisterComponent
+    RegisterComponent,
+    ManagementComponent
   ],
   imports: [
     AppRoutingModule,
