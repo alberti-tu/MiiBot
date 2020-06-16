@@ -37,9 +37,9 @@ export class Database {
             // Creating database
             await connection.query('CREATE DATABASE ' + configuration.mariaDB.database);
             await connection.query('USE ' + configuration.mariaDB.database);
-            await connection.query('CREATE TABLE users (id VARCHAR(64) NOT NULL UNIQUE, username VARCHAR(128) PRIMARY KEY)');
             await connection.query('CREATE TABLE admins (id VARCHAR(64) NOT NULL UNIQUE, username VARCHAR(128) PRIMARY KEY, password VARCHAR(64) NOT NULL)');
-            await connection.query('CREATE TABLE history (ref VARCHAR(64) PRIMARY KEY, user VARCHAR(128), action TEXT NOT NULL, date TIMESTAMP NOT NULL, CONSTRAINT `fk_user` FOREIGN KEY (user) REFERENCES users (username))');
+            await connection.query('CREATE TABLE users (id VARCHAR(64) NOT NULL UNIQUE, username VARCHAR(128) PRIMARY KEY)');
+            await connection.query('CREATE TABLE history (ref VARCHAR(64) PRIMARY KEY, user VARCHAR(128), action TEXT NOT NULL, date TIMESTAMP NOT NULL, CONSTRAINT `fk_user` FOREIGN KEY (user) REFERENCES users (username) ON DELETE CASCADE ON UPDATE RESTRICT)');
 
             await connection.end();
 

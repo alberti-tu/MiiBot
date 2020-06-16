@@ -4,6 +4,11 @@ export interface Response<T> {
     result: T;
 }
 
+export interface User {
+    id: string;
+    username: string;
+}
+
 export interface Action {
     ref: string;
     user: string;

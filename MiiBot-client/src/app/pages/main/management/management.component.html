@@ -1,1 +1,12 @@
-<p>management works!</p>
+<table>
+    <tr class="tableHeaderRow">
+        <th>Usuario</th>
+    </tr>
+
+    <tr *ngFor="let item of userList" class="tableContentRow">
+        <td>{{ item.username }}</td>
+        <td><mat-icon matRipple [matRippleCentered]="true" (click)="showDeleteDialog(item)">delete</mat-icon></td>
+    </tr>
+</table>
+
+<mat-paginator [length]="length" [pageSize]="10" [pageSizeOptions]="sizeOptions" (page)="pager($event)"></mat-paginator>

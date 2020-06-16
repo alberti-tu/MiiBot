@@ -37,6 +37,15 @@ export async function verifyUser(username: string): Promise<boolean> {
     return result[0]['COUNT(*)'] === 1 ? true : false;
 }
 
+export async function selectUserCount(): Promise<number> {
+    const result = await database.query('SELECT COUNT(*) FROM users');
+    return result[0]['COUNT(*)'];
+}
+
+export async function selectUserList(page: number, size: number): Promise<any[]> {
+    return await database.query('SELECT * FROM users ORDER BY username DESC LIMIT ? OFFSET ?', [ size, page ]);
+}
+
 export async function insertUser(username: string): Promise<StatusDatabase> {
     const idHash = crypto.createHash('sha256').update(new Date().getTime().toString()).digest('hex');
     return await database.query('INSERT INTO users VALUES (?,?)', [ idHash, username ]);
@@ -74,7 +83,7 @@ export async function selectHistoryCount(): Promise<number> {
     return result[0]['COUNT(*)'];
 }
 
-export async function selectHistory(page: number, size: number): Promise<any[]> {
+export async function selectHistoryList(page: number, size: number): Promise<any[]> {
     return await database.query('SELECT * FROM history ORDER BY date DESC LIMIT ? OFFSET ?', [ size, page ]);
 }
 

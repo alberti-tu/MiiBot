@@ -16,7 +16,6 @@ Installing NodeJS and NPM for Linux systems
 sudo apt update -y
 sudo apt upgrade -y
 
-curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
 sudo apt install nodejs -y
 
 sudo npm cache clean -f

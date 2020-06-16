@@ -14,14 +14,16 @@ export class HomeComponent implements OnInit {
 
   public actionList: Action[] = [];
 
+  private pageConfig: { page: number, size: number } = { page: 0, size: 10 };
+
   constructor(private httpService: HttpService) { }
 
   public ngOnInit(): void {
-    this.getData(0, 10);
+    this.getData(this.pageConfig.page, this.pageConfig.size);
   }
 
   public async getData(page: number, size: number): Promise<void> {
-    const response1 = await this.httpService.getActionListCount();
+    const response1 = await this.httpService.getActionCount();
     response1.subscribe(data => this.length = data.result);
 
     const response2 = await this.httpService.getActionList(page, size);
@@ -39,7 +41,8 @@ export class HomeComponent implements OnInit {
   }
 
   public pager(event: { length: number, pageIndex: number, pageSize: number, previousPageIndex: number }): void {
-    this.getData(event.pageIndex * event.pageSize, event.pageSize);
+    this.pageConfig = { page: event.pageIndex * event.pageSize, size: event.pageSize };
+    this.getData(this.pageConfig.page, this.pageConfig.size);
   }
 
 }

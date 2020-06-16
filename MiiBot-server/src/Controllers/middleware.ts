@@ -36,6 +36,24 @@ export async function verifyToken(req: Request<any>, res: Response<Message<strin
     }
 }
 
+export async function getUserCount(req: Request<any>, res: Response<Message<number>>, next: NextFunction) {
+    try {
+        const result = await database.selectUserCount();
+        res.status(200).send({ code: 200, message: 'Successful', result: result });
+    } catch {
+        res.status(400).send({ code: 400, message: 'Bad Request', result: null });
+    }
+}
+
+export async function getUserList(req: Request<any>, res: Response<Message<any[]>>, next: NextFunction) {
+    try {
+        const result = await database.selectUserList(parseInt(req.query.page), parseInt(req.query.size));
+        res.status(200).send({ code: 200, message: 'Successful', result: result });
+    } catch {
+        res.status(400).send({ code: 400, message: 'Bad Request', result: null });
+    }
+}
+
 export async function registerUser(req: Request<any>, res: Response<Message<boolean>>, next: NextFunction) {
     try {
         await database.insertUser(req.body.username);
@@ -91,9 +109,9 @@ export async function getHistoryCount(req: Request<any>, res: Response<Message<n
     }
 }
 
-export async function getHistory(req: Request<any>, res: Response<Message<ActionDatabase[]>>, next: NextFunction) {
+export async function getHistoryList(req: Request<any>, res: Response<Message<ActionDatabase[]>>, next: NextFunction) {
     try {
-        const result = await database.selectHistory(parseInt(req.query.page), parseInt(req.query.size));
+        const result = await database.selectHistoryList(parseInt(req.query.page), parseInt(req.query.size));
         res.status(200).send({ code: 200, message: 'Successful', result: result });
     } catch {
         res.status(400).send({ code: 400, message: 'Bad Request', result: null });
