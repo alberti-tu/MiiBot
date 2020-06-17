@@ -61,7 +61,7 @@ async function closeDoor(username: string): Promise<string> {
     try {
         await database.insertHistory(username, 'close');
         gpio.sendPulse(configuration.gpio.out.pulse, configuration.gpio.out.time);
-        return 'Abriendo puerta ...';
+        return 'Cerrando puerta ...';
     } catch {
         return 'Lo siento pero no tienes permiso para hacer esta acción';
     }
