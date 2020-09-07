@@ -19,7 +19,7 @@ export const configuration = {
         user: 'root'
     },
     server: {
-        port: 80,
+        port: 8080,
         secret: 'secret',                                           // Key to encrypt authentication tokens
         timeout: '1d'                                               // Expiration time of the authentication token
     },
